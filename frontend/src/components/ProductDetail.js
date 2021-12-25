@@ -1,21 +1,20 @@
-import React,{useState,useEffect} from 'react'
+import React,{useEffect} from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom'
-import { Row, Col, Image, ListGroup } from 'react-bootstrap'
+import { Row, Col, ListGroup } from 'react-bootstrap'
+import { useDispatch,useSelector } from 'react-redux';
+import {listProductDetails} from './../actions/productActions';
 
 
 const ProductDetail = ({match}) => {
-    const [product,setProduct]=useState([]);
+  const productDetails = useSelector(state=>state.productDetails)
+    const {loading,error,product} = productDetails
+  const dispatch = useDispatch();
     useEffect(()=>{
-        const fetchProduct = async()=>{
-            const {data}= await axios.get(`/products/${match.params.id}`)
-            setProduct(data);
-            //console.log(product)
-            //console.log(match.params.id)
+      dispatch(listProductDetails(match.params.id))
+        
 
-        }
-        fetchProduct();
-    },[product,match])
+        },[match])
     return (
         <>
         <Link className='btn btn-light my-3' to='/'>
@@ -23,14 +22,12 @@ const ProductDetail = ({match}) => {
       </Link>
 
           <Row>
-            <Col md={6}>
-              <Image src={product.image} alt={product.name} fluid />
-            </Col>
+           
             <Col md={3}>
               <ListGroup variant='flush'>
                 <ListGroup.Item>
-                <h3>{product.title}</h3>
-                  <h3>{product.name}</h3>
+                <h3>{product.name}</h3>
+                  <h3>{product.description}</h3>
                 </ListGroup.Item>
                 <ListGroup.Item>
                  
