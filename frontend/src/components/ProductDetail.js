@@ -12,8 +12,6 @@ const ProductDetail = ({match}) => {
     useEffect(()=>{
       dispatch(listProductDetails(match.params.id))
       console.log(product)
-        
-
         },[match])
         console.log(product);
 

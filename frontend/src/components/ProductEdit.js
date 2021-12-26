@@ -16,38 +16,61 @@ const ProductEdit = ({match,history}) => {
 
 
   const productDetails = useSelector((state) => state.productDetails)
-  const { loading, error, product } = productDetails
+  const { loading, error,success, product } = productDetails
 
   const productupdate = useSelector((state) => state.productupdate)
   const {loading: loadingUpdate,error: errorUpdate,success: successUpdate
   } = productupdate
 
+  // useEffect(() => {
+  //   if (successUpdate) {
+  //     dispatch({ type: 'PRODUCT_UPDATE_RESET' })
+  //     history.push('/')
+  //   } else{
+      
+  //    if (!product.name || product._id !== productId) {
+  //       dispatch(listProductDetails(productId))
+  //     } else {
+  //       setName(product.name)
+  //       setPrice(product.price)
+  //       setDescription(product.description)
+  //       //dispatch({ type: 'PRODUCT_DETAILS_RESET' })
+
+  //     }
+  //   }
+    
+    
+    
+  // }, [dispatch,history,productId,product,successUpdate])
+
   useEffect(() => {
-    if (successUpdate) {
-        dispatch({ type: 'PRODUCT_UPDATE_RESET' })
-        history.push('/')
-      } else {    
-     if (!product.name || product._id !== productId) {
-        dispatch(listProductDetails(productId))
-      } else {
-        setName(product.name)
-        setPrice(product.price)
-        setDescription(product.description)
-      }
-    }
     
-    
-  }, [dispatch,history,productId,product,successUpdate])
+    dispatch(listProductDetails(productId));
+  
+  
+  }, [dispatch, productId]);
+
+  useEffect(() => {
+    if (product) {
+              setName(product.name)
+             setPrice(product.price)
+             setDescription(product.description)
+            
+            }
+  }, [product]);
+
 
 
 
 
   const submitHandler = (e)=>{
     e.preventDefault()
-    dispatch(updateProduct({name,description,price},productId))
+   
+    dispatch(updateProduct({name,description,price},productId,history))
+  
     
-    
-    
+
+
 }
 
     return (

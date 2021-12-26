@@ -84,16 +84,19 @@ export const listProducts = () => async (
     }
   }
 
-  export const updateProduct = (product,id) => async (dispatch) => {
+  export const updateProduct = (product,id,history) => async (dispatch) => {
     try {
       dispatch({ type: 'PRODUCT_UPDATE_REQUEST' })
   
-      const {data} = await axios.patch(`/products/${id}`,product)
-  
+      const {data} = await axios.put(`/products/${id}`,product)
+      setTimeout(() => {
       dispatch({
         type: 'PRODUCT_UPDATE_SUCCESS',
         payload:data
-      })
+      });
+      history.push("/");
+    }, 1000);
+      
     } catch (error) {
       dispatch({
         type: 'PRODUCT_UPDATE_FAIL',

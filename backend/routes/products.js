@@ -43,7 +43,7 @@ router.post('/',asyncHandler(async (req, res) => {
     
   }));
 
-  router.patch('/:id',asyncHandler(async (req, res) => {
+  router.put('/:id',asyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
     const name = req.body.name;
     const description = req.body.description;
