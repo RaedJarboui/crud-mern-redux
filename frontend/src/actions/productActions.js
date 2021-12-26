@@ -63,16 +63,18 @@ export const listProducts = () => async (
     }
   }
 
-  export const createProduct = (product) => async (dispatch) => {
+  export const createProduct = (product,history) => async (dispatch) => {
     try {
       dispatch({ type: 'PRODUCT_CREATE_REQUEST' })
   
       const {data} = await axios.post('/products',product)
-  
+      setTimeout(() => {
       dispatch({
         type: 'PRODUCT_CREATE_SUCCESS',
         payload:data
       })
+      history.push("/");
+    }, 1000);
     } catch (error) {
       dispatch({
         type: 'PRODUCT_CREATE_FAIL',

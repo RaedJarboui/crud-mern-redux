@@ -17,8 +17,7 @@ const ProductCreate = () => {
   const { loading, error,success, product } = productcreate
     const submitHandler =(e)=>{
         e.preventDefault()
-        dispatch(createProduct({name,description,price}))
-        history.push('/');
+        dispatch(createProduct({name,description,price},history))
     }
     return (
         <>
