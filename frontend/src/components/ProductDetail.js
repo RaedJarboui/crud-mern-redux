@@ -1,5 +1,4 @@
 import React,{useEffect} from 'react'
-import axios from 'axios';
 import { Link } from 'react-router-dom'
 import { Row, Col, ListGroup } from 'react-bootstrap'
 import { useDispatch,useSelector } from 'react-redux';
@@ -12,6 +11,7 @@ const ProductDetail = ({match}) => {
   const dispatch = useDispatch();
     useEffect(()=>{
       dispatch(listProductDetails(match.params.id))
+      console.log(product)
         
 
         },[match])

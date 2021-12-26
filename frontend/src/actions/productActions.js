@@ -62,3 +62,45 @@ export const listProducts = () => async (
       })
     }
   }
+
+  export const createProduct = (product) => async (dispatch) => {
+    try {
+      dispatch({ type: 'PRODUCT_CREATE_REQUEST' })
+  
+      const {data} = await axios.post('/products',product)
+  
+      dispatch({
+        type: 'PRODUCT_CREATE_SUCCESS',
+        payload:data
+      })
+    } catch (error) {
+      dispatch({
+        type: 'PRODUCT_CREATE_FAIL',
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }
+
+  export const updateProduct = (product,id) => async (dispatch) => {
+    try {
+      dispatch({ type: 'PRODUCT_UPDATE_REQUEST' })
+  
+      const {data} = await axios.patch(`/products/${id}`,product)
+  
+      dispatch({
+        type: 'PRODUCT_UPDATE_SUCCESS',
+        payload:data
+      })
+    } catch (error) {
+      dispatch({
+        type: 'PRODUCT_UPDATE_FAIL',
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }

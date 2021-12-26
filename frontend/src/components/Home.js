@@ -2,6 +2,8 @@ import React,{useEffect} from 'react'
 import {Button} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import {useDispatch,useSelector } from 'react-redux'
+import { LinkContainer } from 'react-router-bootstrap'
+
 //import axios from 'axios';
 import { listProducts,deleteProduct } from './../actions/productActions';
 
@@ -37,14 +39,24 @@ const Home = () => {
           </thead>
           <tbody>
           {products.map((product) => (
-              <tr>
+              <tr key={product._id}>
               <td>{product.name}</td>
               <td>{product.description}</td>
               <td>{product.price}</td>
               <td>
-              <Button variant="danger" onClick={()=>onDelete(product._id)}>Danger</Button> 
+              <LinkContainer to={`/edit/product/${product._id}`}>
+                      <Button variant='danger' className='btn-sm'>
+                        
+                        Edit
+                      </Button>
+                    </LinkContainer>
+              <Button variant="danger" className='btn-sm' onClick={()=>onDelete(product._id)}>Delete</Button> 
 
-              <Link to={`/product/${product._id}`}>Details</Link>
+              <LinkContainer to={`/product/${product._id}`}>
+              <Button variant='danger' className='btn-sm'>
+                        Details
+                      </Button>
+                  </LinkContainer>
               </td>
 
               </tr>
