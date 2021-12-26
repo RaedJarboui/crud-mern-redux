@@ -19,7 +19,6 @@ const ProductCreate = () => {
         e.preventDefault()
         dispatch(createProduct({name,description,price}))
         history.push('/');
-        console.log("hi");
     }
     return (
         <>

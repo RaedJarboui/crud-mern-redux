@@ -7,50 +7,53 @@ import {updateProduct,listProductDetails} from '../actions/productActions'
 
 
 const ProductEdit = ({match,history}) => {
-    
+    const productId=match.params.id
+
   const [name, setName] = useState('')
   const [price, setPrice] = useState(0)
   const [description, setDescription] = useState('')
     const dispatch = useDispatch()
-    
+
 
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, error, product } = productDetails
-  const productId=match.params.id
 
-//   const productupdate = useSelector((state) => state.productupdate)
-//   const {
-//     loading: loadingUpdate,
-//     error: errorUpdate,
-//     success: successUpdate,
-//     product:productUpdated
-//   } = productupdate
+  const productupdate = useSelector((state) => state.productupdate)
+  const {loading: loadingUpdate,error: errorUpdate,success: successUpdate
+  } = productupdate
 
-  useEffect(()=>{
-    if (!product.name || product._id !== productId) {
-        dispatch(listProductDetails(productId));
+  useEffect(() => {
+    if (successUpdate) {
+        dispatch({ type: 'PRODUCT_UPDATE_RESET' })
+        history.push('/')
+      } else {    
+     if (!product.name || product._id !== productId) {
+        dispatch(listProductDetails(productId))
       } else {
-        setName(product.name);
-       
+        setName(product.name)
+        setPrice(product.price)
+        setDescription(product.description)
       }
-       
-      
+    }
+    
+    
+  }, [dispatch,history,productId,product,successUpdate])
 
-  },[dispatch,productId]);
 
 
 
   const submitHandler = (e)=>{
     e.preventDefault()
-    dispatch(updateProduct({name,description,price},match.params.id))
-    history.push('/');
+    dispatch(updateProduct({name,description,price},productId))
+    
+    
+    
 }
 
     return (
         <>
-                        <h3>{name}</h3>
 
-         {/* <Link to='/' className='btn btn-light my-3'>
+          <Link to='/' className='btn btn-light my-3'>
         Go Back
       </Link>
       <FormContainer>
@@ -66,6 +69,15 @@ const ProductEdit = ({match,history}) => {
                 onChange={(e) => setName(e.target.value)}
               ></Form.Control>
             </Form.Group>
+            <Form.Group controlId='description'>
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                type='text'
+                placeholder='Enter description'
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
 
             <Form.Group controlId='price'>
               <Form.Label>Price</Form.Label>
@@ -77,26 +89,12 @@ const ProductEdit = ({match,history}) => {
               ></Form.Control>
             </Form.Group>
 
-            
-
-        
-
-            <Form.Group controlId='description'>
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Enter description'
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-
             <Button type='submit' variant='primary'>
               Update
             </Button>
           </Form>
        
-      </FormContainer> */}
+      </FormContainer> 
     </>
             
        

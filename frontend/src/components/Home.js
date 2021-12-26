@@ -45,8 +45,7 @@ const Home = () => {
               <td>{product.price}</td>
               <td>
               <LinkContainer to={`/edit/product/${product._id}`}>
-                      <Button variant='danger' className='btn-sm'>
-                        
+                      <Button variant='danger' className='btn-sm'>                     
                         Edit
                       </Button>
                     </LinkContainer>

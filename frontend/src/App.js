@@ -15,10 +15,10 @@ const App =() => {
     <Header />
     <main className='py-3'>
       <Container>
+      <Route path='/edit/product/:id' component={ProductEdit} exact  />
+      <Route path='/product/:id' component={ProductDetail} exact  />
+      <Route path='/add' component={ProductCreate} exact />
       <Route path='/' component={Home} exact />
-      <Route path='/product/:id' component={ProductDetail}  />
-      <Route path='/edit/product/:id' component={ProductEdit}  />
-      <Route path='/add' component={ProductCreate}  />
 
 
 
